@@ -3,5 +3,5 @@
   "version": "1.0.0",
   "description": "Adds a custom button to the nav bar.",
   "author": "a pretty parrot",
-  "entry": "script.js"
+  "entry": "index.js"
 }
