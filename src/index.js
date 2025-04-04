@@ -31,16 +31,19 @@ function setupExtension() {
         btn.className = 'nav-button';
         btn.innerHTML = '<i class="fa-solid fa-mug-hot"></i>';
         btn.title = 'Manage Characters';
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
             drawerWrapper.classList.toggle('closedDrawer');
             console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
         });
         navBar.appendChild(btn);
 
-        // Auto-close drawer if another opens
-        document.body.addEventListener('click', () => {
+        // Auto-close drawer only if the click is outside our button or drawer
+        document.body.addEventListener('click', (e) => {
+            const isOurButton = e.target.closest('.nav-button');
+            const isInsideDrawer = e.target.closest('#nav-char-drawer');
             const anyOpenDrawer = document.querySelector('.inline-drawer:not(.closedDrawer)');
-            if (anyOpenDrawer && !drawerWrapper.classList.contains('closedDrawer')) {
+
+            if (anyOpenDrawer && !drawerWrapper.classList.contains('closedDrawer') && !isOurButton && !isInsideDrawer) {
                 drawerWrapper.classList.add('closedDrawer');
                 console.log('[nav-button] Closed drawer due to another drawer opening');
             }
