@@ -4,7 +4,10 @@ function setupExtension() {
     console.log('[nav-button] Setting up...');
 
     const navInterval = setInterval(() => {
-        const navBar = document.querySelector('.topNavRight') || document.querySelector('#nav-buttons');
+        const navBar = document.querySelector('.navIcons') ||
+                       document.querySelector('.topNavRight') ||
+                       document.querySelector('#nav-buttons');
+
         if (navBar) {
             clearInterval(navInterval);
             console.log('[nav-button] navBar found!', navBar);
@@ -19,6 +22,8 @@ function setupExtension() {
             });
 
             navBar.appendChild(btn);
+        } else {
+            console.log('[nav-button] navBar not found yet...');
         }
     }, 500);
 }
