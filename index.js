@@ -3,7 +3,7 @@ console.log('[nav-button] Extension script loaded.');
 function setupExtension() {
     console.log('[nav-button] Setting up...');
 
-    const { extensionSettings, saveSettingsDebounced } = SillyTavern.getContext();
+    const context = SillyTavern.getContext();
 
     const navInterval = setInterval(() => {
         const navBar = document.querySelector('#top-settings-holder');
@@ -36,6 +36,7 @@ function setupExtension() {
         btn.addEventListener('click', () => {
             drawerWrapper.classList.toggle('closedDrawer');
             console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
+            console.log(JSON.stringify(context.chars);
         });
         navBar.appendChild(btn);
 
