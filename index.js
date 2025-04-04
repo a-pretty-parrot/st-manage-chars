@@ -1,5 +1,21 @@
 console.log("[st-manage-chars] 🚀 Extension script loaded");
 
+// Wait for SillyTavern's internal event bus
+function waitForEventBusAndInit() {
+    if (typeof eventBus === "undefined") {
+        console.log("[st-manage-chars] ⏳ Waiting for eventBus...");
+        setTimeout(waitForEventBusAndInit, 250);
+        return;
+    }
+
+    eventBus.on("app_ready", () => {
+        console.log("[st-manage-chars] 🎉 app_ready received. Bootstrapping...");
+        createManageCharsButton();
+    });
+}
+
+waitForEventBusAndInit();
+
 function createManageCharsButton() {
     const nav = document.getElementById("nav-buttons");
     if (!nav) {
@@ -51,10 +67,4 @@ function createManageCharsButton() {
 
     console.log("[st-manage-chars] ✅ Drawer injected");
 }
-
-// Register immediately
-document.addEventListener("app_ready", () => {
-    console.log("[st-manage-chars] 🎉 app_ready received. Bootstrapping...");
-    createManageCharsButton();
-});
 
