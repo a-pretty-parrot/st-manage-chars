@@ -1,7 +1,13 @@
 {
-    "name": "nav-button",
+    "display_name": "Nav Button",
+    "loading_order": 1,
+    "requires": [],
+    "optional": [],
+    "js": "dist/index.js",
+    "css": "style.css",
+    "author": "a pretty parrot",
     "version": "1.0.0",
-    "description": "Adds a button to the nav bar using the WebpackTemplate base.",
-    "author": "YourName",
-    "entry": "dist/index.js"
+    "homePage": "https://github.com/a-pretty-parrot/st-manage-chars",
+    "auto_update": false
 }
+
