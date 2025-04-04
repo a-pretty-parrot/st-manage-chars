@@ -1,8 +1,7 @@
 {
     "name": "nav-button",
     "version": "1.0.0",
-    "description": "Adds a button to the nav bar using the ReactTemplate base.",
+    "description": "Adds a button to the nav bar using the WebpackTemplate base.",
     "author": "YourName",
-    "entry": "index.js",
-    "react_entry": "react_index.jsx"
+    "entry": "dist/index.js"
 }

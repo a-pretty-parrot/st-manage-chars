@@ -1,5 +1,7 @@
+console.log('[nav-button] Extension script loaded.');
+
 function setupExtension() {
-    console.log('[nav-button] Extension loaded!');
+    console.log('[nav-button] Setting up...');
 
     const navInterval = setInterval(() => {
         const navBar = document.querySelector('#nav-buttons');
@@ -33,7 +35,7 @@ if (typeof registerExtension === 'function') {
     setupExtension();
 }
 
-// Load stylesheet
+// Load the CSS manually
 const style = document.createElement('link');
 style.rel = 'stylesheet';
 style.href = './extensions/nav-button/style.css';
