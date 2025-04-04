@@ -8,6 +8,6 @@
     "author": "a pretty parrot",
     "version": "1.0.0",
     "homePage": "https://github.com/a-pretty-parrot/st-manage-chars",
-    "auto_update": true
+    "auto_update": false
 }
 
