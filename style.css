@@ -39,4 +39,37 @@
 
 .drawer-body {
     font-size: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+#grouped-char-list > div {
+    background: #2a2a2a;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+#grouped-char-list img {
+    object-fit: cover;
+}
+
+#char-search {
+    background: #2a2a2a;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+#char-prev, #char-next {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#char-prev:hover, #char-next:hover {
+    background: #555;
 }
