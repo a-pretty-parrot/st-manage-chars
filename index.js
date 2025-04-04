@@ -3,6 +3,8 @@ console.log('[nav-button] Extension script loaded.');
 function setupExtension() {
     console.log('[nav-button] Setting up...');
 
+    const { extensionSettings, saveSettingsDebounced } = SillyTavern.getContext();
+
     const navInterval = setInterval(() => {
         const navBar = document.querySelector('#top-settings-holder');
         if (!navBar) return;
