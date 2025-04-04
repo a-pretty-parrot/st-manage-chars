@@ -1,62 +1,67 @@
-console.log("[st-manage-chars] 🚀 Extension script loaded");
+console.log('[nav-button] Extension script loaded.');
 
-// Wait until DOM is fully loaded and nav-buttons is present
-function waitForDomAndInject() {
-    const nav = document.getElementById("nav-buttons");
-    if (!nav) {
-        console.log("[st-manage-chars] ⏳ Waiting for DOM...");
-        return setTimeout(waitForDomAndInject, 250);
-    }
+function setupExtension() {
+    console.log('[nav-button] Setting up...');
 
-    console.log("[st-manage-chars] ✅ DOM ready, injecting button...");
-    injectManageCharsButton(nav);
+    const navInterval = setInterval(() => {
+        const navBar = document.querySelector('#top-settings-holder');
+        if (!navBar) return;
+
+        clearInterval(navInterval);
+        console.log('[nav-button] navBar found!', navBar);
+
+        // Create drawer shell with unique class
+        const drawerWrapper = document.createElement('div');
+        drawerWrapper.id = 'nav-char-drawer';
+        drawerWrapper.className = 'custom-drawer closedDrawer';
+
+        const drawerContent = document.createElement('div');
+        drawerContent.className = 'custom-drawer-content';
+        drawerContent.innerHTML = `
+            <div class="drawer-header">Manage Characters</div>
+            <div class="drawer-body">
+                <div>This is the drawer content!</div>
+            </div>
+        `;
+        drawerWrapper.appendChild(drawerContent);
+        document.body.appendChild(drawerWrapper);
+
+        // Add toggle button to nav
+        const btn = document.createElement('button');
+        btn.className = 'nav-button';
+        btn.innerHTML = '<i class="fa-solid fa-mug-hot"></i>';
+        btn.title = 'Manage Characters';
+        btn.addEventListener('click', () => {
+            drawerWrapper.classList.toggle('closedDrawer');
+            console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
+        });
+        navBar.appendChild(btn);
+
+        // Auto-close drawer only if the click is outside our button or drawer
+        document.body.addEventListener('click', (e) => {
+            const isOurButton = e.target.closest('.nav-button');
+            const isInsideDrawer = e.target.closest('#nav-char-drawer');
+            const anyOpenDrawer = document.querySelector('.inline-drawer:not(.closedDrawer)');
+
+            if (anyOpenDrawer && !drawerWrapper.classList.contains('closedDrawer') && !isOurButton && !isInsideDrawer) {
+                drawerWrapper.classList.add('closedDrawer');
+                console.log('[nav-button] Closed drawer due to another drawer opening');
+            }
+        });
+    }, 500);
 }
 
-waitForDomAndInject();
-
-function injectManageCharsButton(nav) {
-    if (document.getElementById("manageCharsNavButton")) {
-        console.warn("[st-manage-chars] ⚠️ Button already exists, skipping");
-        return;
-    }
-
-    const btn = document.createElement("button");
-    btn.className = "nav-button";
-    btn.id = "manageCharsNavButton";
-    btn.innerText = "📚 Characters";
-
-    btn.onclick = () => {
-        const drawer = document.getElementById("st-manage-chars-drawer");
-        drawer?.classList.toggle("open");
-    };
-
-    nav.appendChild(btn);
-    console.log("[st-manage-chars] ✅ Button added");
-
-    const drawer = document.createElement("div");
-    drawer.id = "st-manage-chars-drawer";
-    drawer.innerHTML = "<div style='padding: 16px;'>Character Drawer Loaded</div>";
-    drawer.classList.add("st-drawer");
-    document.body.appendChild(drawer);
-
-    const style = document.createElement("style");
-    style.textContent = `
-        .st-drawer {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #222;
-            color: white;
-            z-index: 9999;
-            display: none;
-            overflow: auto;
-            padding: 20px;
-        }
-        .st-drawer.open {
-            display: block;
-        }
-    `;
-    document.head.appendChild(style);
-
-    console.log("[st-manage-chars] ✅ Drawer injected");
+if (typeof registerExtension === 'function') {
+    registerExtension({
+        name: 'nav-button',
+        setup: setupExtension,
+    });
+} else {
+    setupExtension();
 }
 
+// Load the CSS
+const style = document.createElement('link');
+style.rel = 'stylesheet';
+style.href = './extensions/st-manage-chars/style.css';
+document.head.appendChild(style);
