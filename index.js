@@ -36,7 +36,7 @@ function setupExtension() {
         btn.addEventListener('click', () => {
             drawerWrapper.classList.toggle('closedDrawer');
             console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
-            console.log(context.chars);
+            console.log(context.characters);
         });
         navBar.appendChild(btn);
 
