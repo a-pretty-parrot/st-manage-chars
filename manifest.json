@@ -1,6 +1,6 @@
 {
     "display_name": "Nav Button",
-    "loading_order": 2,
+    "loading_order": 1,
     "requires": [],
     "optional": [],
     "js": {
