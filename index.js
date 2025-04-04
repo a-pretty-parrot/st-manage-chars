@@ -2,8 +2,10 @@
 
 function setupExtension() {
     const navInterval = setInterval(() => {
+        console.log("in const navInternal");
         const navBar = document.querySelector('#nav-buttons');
         if (navBar) {
+            console.log("navBar found");
             clearInterval(navInterval);
 
             // Create the new button
