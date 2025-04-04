@@ -4,9 +4,7 @@ function setupExtension() {
     console.log('[nav-button] Setting up...');
 
     const navInterval = setInterval(() => {
-        const navBar = document.querySelector('.navIcons') ||
-                       document.querySelector('.topNavRight') ||
-                       document.querySelector('#nav-buttons');
+        const navBar = document.querySelector('#top-settings-holder');
 
         if (navBar) {
             clearInterval(navInterval);
