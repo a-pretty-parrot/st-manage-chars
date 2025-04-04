@@ -1,28 +1,20 @@
 console.log("[st-manage-chars] 🚀 Extension script loaded");
 
-// Wait for SillyTavern's internal event bus
-function waitForEventBusAndInit() {
-    if (typeof eventBus === "undefined") {
-        console.log("[st-manage-chars] ⏳ Waiting for eventBus...");
-        setTimeout(waitForEventBusAndInit, 250);
-        return;
-    }
-
-    eventBus.on("app_ready", () => {
-        console.log("[st-manage-chars] 🎉 app_ready received. Bootstrapping...");
-        createManageCharsButton();
-    });
-}
-
-waitForEventBusAndInit();
-
-function createManageCharsButton() {
+// Wait until DOM is fully loaded and nav-buttons is present
+function waitForDomAndInject() {
     const nav = document.getElementById("nav-buttons");
     if (!nav) {
-        console.error("[st-manage-chars] ❌ nav-buttons not found.");
-        return;
+        console.log("[st-manage-chars] ⏳ Waiting for DOM...");
+        return setTimeout(waitForDomAndInject, 250);
     }
 
+    console.log("[st-manage-chars] ✅ DOM ready, injecting button...");
+    injectManageCharsButton(nav);
+}
+
+waitForDomAndInject();
+
+function injectManageCharsButton(nav) {
     if (document.getElementById("manageCharsNavButton")) {
         console.warn("[st-manage-chars] ⚠️ Button already exists, skipping");
         return;
