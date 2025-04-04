@@ -20,12 +20,26 @@
     transition: transform 0.3s ease-in-out;
 }
 
-.inline-drawer-content.closedDrawer {
-    transform: translateX(100%);
-}
-
 .inline-drawer-content {
     transform: translateX(0);
     transition: transform 0.3s ease-in-out;
     padding: 10px;
+}
+
+.inline-drawer {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    width: 400px;
+    height: calc(100% - 50px);
+    background: #1e1e1e;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.inline-drawer.closedDrawer {
+    transform: translateX(100%);
 }

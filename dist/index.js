@@ -34,7 +34,7 @@ function setupExtension() {
             btn.title = 'Manage Characters';
 
             btn.addEventListener('click', () => {
-                drawerContent.classList.toggle('closedDrawer');
+                drawerWrapper.classList.toggle('closedDrawer');
                 console.log('[nav-button] Toggle drawer:', !drawerContent.classList.contains('closedDrawer'));
             });
 
