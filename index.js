@@ -1,45 +1,53 @@
-console.log("[st-manage-chars] >>> Extension script loaded <<<");
+console.log("[st-manage-chars] 🚀 Extension script loaded");
 
-// ✅ Ensure SillyTavern is fully initialized before proceeding
-function waitForStReady(retries = 50) {
-    if (typeof registerExtension === "function") {
-        console.log("[st-manage-chars] ✅ registerExtension is available");
+// 🚀 Wait for SillyTavern's app to be fully ready
+document.addEventListener("app_ready", () => {
+    console.log("[st-manage-chars] ✅ app_ready detected");
 
-        // ✅ Register extension
-        registerExtension({
-            name: "st-manage-chars",
-            setup() {
-                console.log("[st-manage-chars] 🚀 Extension setup running");
+    let attempts = 0;
+    const maxAttempts = 30;
 
-                // ✅ Find the nav bar
-                const navBar = document.getElementById("nav-buttons");
-                if (!navBar) {
-                    console.warn("[st-manage-chars] ❌ nav-buttons container not found.");
-                    return;
+    const tryRegister = () => {
+        if (typeof registerExtension === "function") {
+            console.log("[st-manage-chars] ✅ registerExtension is available");
+
+            registerExtension({
+                name: "st-manage-chars",
+                setup() {
+                    console.log("[st-manage-chars] 🧠 Running setup...");
+
+                    const navBar = document.getElementById("nav-buttons");
+                    if (!navBar) {
+                        console.warn("[st-manage-chars] ❌ nav-buttons not found.");
+                        return;
+                    }
+
+                    const button = document.createElement("button");
+                    button.id = "manageCharsNavButton";
+                    button.innerText = "📚 Characters";
+                    button.classList.add("nav-button");
+                    button.style.marginLeft = "8px";
+                    button.onclick = () => {
+                        console.log("[st-manage-chars] 🟩 Button clicked");
+                        alert("Character Manager Button Clicked!");
+                    };
+
+                    navBar.appendChild(button);
+                    console.log("[st-manage-chars] ✅ Button added to nav bar");
                 }
+            });
 
-                // ✅ Create the button
-                const button = document.createElement("button");
-                button.id = "manageCharsNavButton";
-                button.innerText = "📚 Characters";
-                button.classList.add("nav-button");
-                button.style.marginLeft = "8px";
-                button.onclick = () => {
-                    console.log("[st-manage-chars] 🟩 Button clicked");
-                    alert("Character Manager Button Clicked!");
-                };
-
-                navBar.appendChild(button);
-                console.log("[st-manage-chars] ✅ Button added to nav bar");
+        } else {
+            attempts++;
+            if (attempts > maxAttempts) {
+                console.error("[st-manage-chars] ❌ Failed to register after max attempts.");
+                return;
             }
-        });
-    } else if (retries > 0) {
-        console.log(`[st-manage-chars] ⏳ Waiting for registerExtension... (${retries})`);
-        setTimeout(() => waitForStReady(retries - 1), 500);
-    } else {
-        console.error("[st-manage-chars] ❌ registerExtension never became available");
-    }
-}
+            console.log(`[st-manage-chars] ⏳ Waiting for registerExtension... (${attempts})`);
+            setTimeout(tryRegister, 500);
+        }
+    };
 
-waitForStReady();
+    tryRegister();
+});
 
