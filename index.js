@@ -18,7 +18,6 @@ function createManageCharsButton() {
     btn.innerText = "📚 Characters";
 
     btn.onclick = () => {
-        console.log("[st-manage-chars] 🖱️ Toggle drawer");
         const drawer = document.getElementById("st-manage-chars-drawer");
         drawer?.classList.toggle("open");
     };
@@ -53,13 +52,9 @@ function createManageCharsButton() {
     console.log("[st-manage-chars] ✅ Drawer injected");
 }
 
-// Hook into global extension system
-window.addEventListener("DOMContentLoaded", () => {
-    console.log("[st-manage-chars] ⏳ Waiting for app_ready...");
-
-    document.addEventListener("app_ready", () => {
-        console.log("[st-manage-chars] 🎉 app_ready received. Bootstrapping...");
-        createManageCharsButton();
-    });
+// Register immediately
+document.addEventListener("app_ready", () => {
+    console.log("[st-manage-chars] 🎉 app_ready received. Bootstrapping...");
+    createManageCharsButton();
 });
 
