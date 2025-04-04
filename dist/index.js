@@ -10,17 +10,17 @@ function setupExtension() {
             clearInterval(navInterval);
             console.log('[nav-button] navBar found!', navBar);
 
-            // Create drawer shell
+            // Create drawer shell (starts closed)
             const drawerWrapper = document.createElement('div');
             drawerWrapper.id = 'nav-char-drawer';
-            drawerWrapper.className = 'inline-drawer';
+            drawerWrapper.className = 'inline-drawer closedDrawer';
 
             const drawerContent = document.createElement('div');
-            drawerContent.className = 'inline-drawer-content closedDrawer';
+            drawerContent.className = 'inline-drawer-content';
             drawerContent.innerHTML = `
                 <div class="drawer-header">Manage Characters</div>
                 <div class="drawer-body" id="custom-char-body">
-                    <div>Loading characters...</div>
+                    <div>This is the drawer content! Characters will go here.</div>
                 </div>
             `;
 
@@ -35,7 +35,7 @@ function setupExtension() {
 
             btn.addEventListener('click', () => {
                 drawerWrapper.classList.toggle('closedDrawer');
-                console.log('[nav-button] Toggle drawer:', !drawerContent.classList.contains('closedDrawer'));
+                console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
             });
 
             navBar.appendChild(btn);
