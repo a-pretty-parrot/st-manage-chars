@@ -1,6 +1,13 @@
-/* extensions/nav-button/style.css */
 .nav-button {
     background-color: #444;
     color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
+.nav-button:hover {
+    background-color: #666;
+}

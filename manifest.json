@@ -1,7 +1,8 @@
 {
-  "name": "nav-button",
-  "version": "1.0.0",
-  "description": "Adds a custom button to the nav bar.",
-  "author": "a pretty parrot",
-  "entry": "index.js"
+    "name": "nav-button",
+    "version": "1.0.0",
+    "description": "Adds a button to the nav bar using the ReactTemplate base.",
+    "author": "YourName",
+    "entry": "index.js",
+    "react_entry": "react_index.jsx"
 }

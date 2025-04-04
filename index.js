@@ -1,35 +1,29 @@
-// extensions/nav-button/script.js
-
 function setupExtension() {
+    console.log('[nav-button] Extension loaded!');
+
     const navInterval = setInterval(() => {
-        console.log("in const navInternal");
         const navBar = document.querySelector('#nav-buttons');
         if (navBar) {
-            console.log("navBar found");
             clearInterval(navInterval);
+            console.log('[nav-button] navBar found!');
 
-            // Create the new button
             const btn = document.createElement('button');
             btn.className = 'nav-button';
             btn.innerText = 'MyButton';
 
-            // Optional icon (FontAwesome, matches existing style)
             const icon = document.createElement('i');
             icon.className = 'fa-solid fa-mug-hot';
             btn.prepend(icon);
 
-            // Click handler
             btn.addEventListener('click', () => {
-                alert('You clicked MyButton!');
+                alert('Nav button clicked!');
             });
 
-            // Append the button
             navBar.appendChild(btn);
         }
     }, 500);
 }
 
-// Register the extension
 if (typeof registerExtension === 'function') {
     registerExtension({
         name: 'nav-button',
@@ -39,9 +33,8 @@ if (typeof registerExtension === 'function') {
     setupExtension();
 }
 
-// Load external stylesheet
+// Load stylesheet
 const style = document.createElement('link');
 style.rel = 'stylesheet';
-style.href = './extensions/nav-button/style.css'; // Path relative to the main app
+style.href = './extensions/nav-button/style.css';
 document.head.appendChild(style);
-
