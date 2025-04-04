@@ -3,7 +3,10 @@
     "loading_order": 2,
     "requires": [],
     "optional": [],
-    "js": "index.js",
+    "js": {
+        "path": "index.js",
+        "type": "module"
+    },
     "css": "style.css",
     "author": "a pretty parrot",
     "version": "1.0.0",
