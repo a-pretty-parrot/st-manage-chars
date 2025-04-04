@@ -10,7 +10,7 @@ function setupExtension() {
         clearInterval(navInterval);
         console.log('[nav-button] navBar found!', navBar);
 
-        // Create drawer shell with unique class
+        // Create drawer shell
         const drawerWrapper = document.createElement('div');
         drawerWrapper.id = 'nav-char-drawer';
         drawerWrapper.className = 'custom-drawer closedDrawer';
@@ -19,8 +19,8 @@ function setupExtension() {
         drawerContent.className = 'custom-drawer-content';
         drawerContent.innerHTML = `
             <div class="drawer-header">Manage Characters</div>
-            <div class="drawer-body">
-                <div>This is the drawer content!</div>
+            <div class="drawer-body" id="char-list">
+                <div>Loading characters...</div>
             </div>
         `;
         drawerWrapper.appendChild(drawerContent);
@@ -31,7 +31,7 @@ function setupExtension() {
         btn.className = 'nav-button';
         btn.innerHTML = '<i class="fa-solid fa-mug-hot"></i>';
         btn.title = 'Manage Characters';
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', () => {
             drawerWrapper.classList.toggle('closedDrawer');
             console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
         });
@@ -48,6 +48,49 @@ function setupExtension() {
                 console.log('[nav-button] Closed drawer due to another drawer opening');
             }
         });
+
+        // Character fetching and display logic
+        setTimeout(() => {
+            const charContainer = document.getElementById('char-list');
+            console.log('[nav-button] Attempting to find .charCard elements...');
+            const charCards = Array.from(document.querySelectorAll('.charCard'));
+            console.log('[nav-button] Found charCards:', charCards.length);
+
+            let characters = [];
+
+            if (charCards.length > 0) {
+                characters = charCards.map(card => {
+                    const name = card.getAttribute('char_name') || 'Unknown';
+                    const avatar = card.querySelector('img')?.src || '';
+                    console.log('[nav-button] Character:', name, avatar);
+                    return { name, avatar };
+                });
+            } else if (window.characters) {
+                console.log('[nav-button] Falling back to window.characters');
+                characters = Object.values(window.characters).map(c => {
+                    console.log('[nav-button] Character:', c.name, c.avatar);
+                    return { name: c.name || 'Unknown', avatar: c.avatar || '' };
+                });
+            }
+
+            if (characters.length === 0) {
+                charContainer.innerHTML = '<div style="color: red;">No characters found. Try switching to the character select screen.</div>';
+                return;
+            }
+
+            charContainer.innerHTML = '';
+            characters.forEach(char => {
+                const entry = document.createElement('div');
+                entry.className = 'char-entry';
+                entry.innerHTML = \`
+                    <img src="\${char.avatar}" alt="\${char.name}">
+                    <span>\${char.name}</span>
+                \`;
+                charContainer.appendChild(entry);
+            });
+
+            console.log('[nav-button] Rendered', characters.length, 'characters.');
+        }, 1000);
     }, 500);
 }
 
