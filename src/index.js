@@ -10,17 +10,22 @@ function setupExtension() {
             clearInterval(navInterval);
             console.log('[nav-button] navBar found!', navBar);
 
-            // Create drawer
-            const drawer = document.createElement('div');
-            drawer.id = 'custom-char-drawer';
-            drawer.className = 'drawer-content closedDrawer';
-            drawer.innerHTML = `
+            // Create drawer shell
+            const drawerWrapper = document.createElement('div');
+            drawerWrapper.id = 'nav-char-drawer';
+            drawerWrapper.className = 'inline-drawer';
+
+            const drawerContent = document.createElement('div');
+            drawerContent.className = 'inline-drawer-content closedDrawer';
+            drawerContent.innerHTML = `
                 <div class="drawer-header">Manage Characters</div>
                 <div class="drawer-body" id="custom-char-body">
                     <div>Loading characters...</div>
                 </div>
             `;
-            document.body.appendChild(drawer);
+
+            drawerWrapper.appendChild(drawerContent);
+            document.body.appendChild(drawerWrapper);
 
             // Create nav button
             const btn = document.createElement('button');
@@ -29,7 +34,8 @@ function setupExtension() {
             btn.title = 'Manage Characters';
 
             btn.addEventListener('click', () => {
-                drawer.classList.toggle('closedDrawer');
+                drawerContent.classList.toggle('closedDrawer');
+                console.log('[nav-button] Toggle drawer:', !drawerContent.classList.contains('closedDrawer'));
             });
 
             navBar.appendChild(btn);
