@@ -28,8 +28,10 @@ function setupExtension() {
 
 if (typeof registerExtension === 'function') {
     registerExtension({
-        name: 'nav-button',
-        setup: setupExtension,
+        name: "nav-button",
+        setup() {
+            console.log("Extension running...");
+        }
     });
 } else {
     setupExtension();
