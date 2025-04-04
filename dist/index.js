@@ -4,10 +4,24 @@ function setupExtension() {
     console.log('[nav-button] Setting up...');
 
     const navInterval = setInterval(() => {
-        const navBar = document.querySelector('.navIcons') ||
-                       document.querySelector('.topNavRight') ||
-                       document.querySelector('#nav-buttons');
+        const allButtons = document.querySelectorAll('button');
+        console.log('[nav-button] Scanning buttons:', allButtons);
 
+        const navIcons = document.querySelector('.navIcons');
+        const topNav = document.querySelector('.topNavRight');
+        const allDivs = document.querySelectorAll('div');
+
+        console.log('[nav-button] .navIcons:', navIcons);
+        console.log('[nav-button] .topNavRight:', topNav);
+        console.log('[nav-button] div count:', allDivs.length);
+
+        allDivs.forEach(div => {
+            if (div.innerHTML.includes('fa-plug')) {
+                console.log('[nav-button] 🔍 Candidate div:', div);
+            }
+        });
+
+        const navBar = navIcons || topNav;
         if (navBar) {
             clearInterval(navInterval);
             console.log('[nav-button] navBar found!', navBar);
@@ -25,7 +39,7 @@ function setupExtension() {
         } else {
             console.log('[nav-button] navBar not found yet...');
         }
-    }, 500);
+    }, 1000);
 }
 
 if (typeof registerExtension === 'function') {
