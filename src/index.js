@@ -4,18 +4,15 @@ function setupExtension() {
     console.log('[nav-button] Setting up...');
 
     const navInterval = setInterval(() => {
-        const navBar = document.querySelector('#nav-buttons');
+        const navBar = document.querySelector('.topNavRight') || document.querySelector('#nav-buttons');
         if (navBar) {
             clearInterval(navInterval);
-            console.log('[nav-button] navBar found!');
+            console.log('[nav-button] navBar found!', navBar);
 
             const btn = document.createElement('button');
             btn.className = 'nav-button';
-            btn.innerText = 'MyButton';
-
-            const icon = document.createElement('i');
-            icon.className = 'fa-solid fa-mug-hot';
-            btn.prepend(icon);
+            btn.innerHTML = '<i class="fa-solid fa-mug-hot"></i>';
+            btn.title = 'MyButton';
 
             btn.addEventListener('click', () => {
                 alert('Nav button clicked!');
@@ -35,8 +32,8 @@ if (typeof registerExtension === 'function') {
     setupExtension();
 }
 
-// Load the CSS manually
+// Load the CSS
 const style = document.createElement('link');
 style.rel = 'stylesheet';
-style.href = './extensions/nav-button/style.css';
+style.href = './extensions/st-manage-chars/style.css';
 document.head.appendChild(style);
