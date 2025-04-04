@@ -10,13 +10,13 @@ function setupExtension() {
         clearInterval(navInterval);
         console.log('[nav-button] navBar found!', navBar);
 
-        // Create drawer shell (empty)
+        // Create drawer shell with unique class
         const drawerWrapper = document.createElement('div');
         drawerWrapper.id = 'nav-char-drawer';
-        drawerWrapper.className = 'inline-drawer closedDrawer';
+        drawerWrapper.className = 'custom-drawer closedDrawer';
 
         const drawerContent = document.createElement('div');
-        drawerContent.className = 'inline-drawer-content';
+        drawerContent.className = 'custom-drawer-content';
         drawerContent.innerHTML = `
             <div class="drawer-header">Manage Characters</div>
             <div class="drawer-body">
@@ -36,6 +36,15 @@ function setupExtension() {
             console.log('[nav-button] Toggle drawer:', !drawerWrapper.classList.contains('closedDrawer'));
         });
         navBar.appendChild(btn);
+
+        // Auto-close drawer if another opens
+        document.body.addEventListener('click', () => {
+            const anyOpenDrawer = document.querySelector('.inline-drawer:not(.closedDrawer)');
+            if (anyOpenDrawer && !drawerWrapper.classList.contains('closedDrawer')) {
+                drawerWrapper.classList.add('closedDrawer');
+                console.log('[nav-button] Closed drawer due to another drawer opening');
+            }
+        });
     }, 500);
 }
 
